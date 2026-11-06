@@ -1,0 +1,49 @@
+{
+  "name": "dsh-whale-widget",
+  "version": "0.4.2",
+  "description": "蓝毛小女仆 · 记账挂件：右下角常驻，跟随当前会话正在使用的模型，显示其余额或会员订阅周期用量。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "balance",
+    "widget"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "icon": "./icon.png",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "assets",
+    "icon.png",
+    "cordis.patch.yml",
+    "README.md",
+    "PROVENANCE.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/issues"
+  },
+  "homepage": "https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget#readme",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    }
+  },
+  "license": "MIT"
+}
