@@ -14,13 +14,12 @@
   "icon": "./icon.png",
   "exports": {
     ".": "./lib/index.js",
-    "./client": "./client/client.js",
+    "./client": "./lib/client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
   "files": [
     "lib",
-    "client",
     "assets",
     "icon.png",
     "cordis.patch.yml",
