@@ -1,59 +1,6 @@
 (function () {
 if (window.__dshWhaleWidget) return
-window.__dshWhaleWidget = true
-
-/* ===== 2026-11-09 DSH 拖動診斷探針 v2（臨時，逐項獨立容錯）===== */
-(function () {
-  var L = []
-  function add(label, fn) {
-    try { L.push(label + '=' + fn()) } catch (e) { L.push(label + '=ERR:' + (e && e.message ? e.message : e)) }
-  }
-  function dump() {
-    L.length = 0
-    var root = document.documentElement
-    add('tbAttr', function () { return root.hasAttribute('data-windows-titlebar') })
-    add('tbH', function () { return root.style.getPropertyValue('--dsh-windows-titlebar-height') || 'none' })
-    add('plat', function () { return root.getAttribute('data-platform') || 'none' })
-    add('tbN', function () { return document.querySelectorAll('[data-windows-titlebar]').length })
-    add('frame', function () { return document.querySelector('.mP3x-q_frame') ? 'yes' : 'no' })
-    add('before', function () {
-      var fr = document.querySelector('.mP3x-q_frame')
-      if (!fr) return 'noFrame'
-      var cs = getComputedStyle(fr, '::before')
-      return (cs.getPropertyValue('-webkit-app-region') || '?') + '/h=' + (cs.height || '?')
-    })
-    add('bad', function () {
-      var bad = [], all = document.querySelectorAll('body *')
-      for (var i = 0; i < all.length && bad.length < 5; i++) {
-        var el = all[i]
-        var ar = (getComputedStyle(el).getPropertyValue('-webkit-app-region') || '').trim()
-        if (ar.indexOf('drag') >= 0 && ar.indexOf('no-drag') < 0) continue
-        if (ar.indexOf('none') < 0) continue
-        var r = el.getBoundingClientRect()
-        if (r.width >= window.innerWidth * 0.85 && r.height >= window.innerHeight * 0.85) {
-          bad.push(el.tagName + '#' + (el.id || '') + '.' + String(el.className || '').slice(0, 14) + '[' + ar + ']')
-        }
-      }
-      return bad.length + (bad.length ? ' ' + bad.join(' ') : '')
-    })
-    try {
-      var d = document.getElementById('dshw-probe')
-      if (!d) { d = document.createElement('div'); d.id = 'dshw-probe' }
-      d.style.cssText = 'position:fixed;left:2px;top:2px;z-index:2147483647;background:#ffe600;color:#000;font:12px/1.35 monospace;padding:3px 5px;white-space:pre;pointer-events:none;border:1px solid #f00'
-      d.textContent = L.join('\n')
-      try { document.title = 'PROBE ' + L.join(' | ') } catch (e) {}
-      try { window.__dshwProbe = L.join(' | ') } catch (e) {}
-      if (d.parentNode !== document.body) document.body.appendChild(d)
-    } catch (e) {}
-  }
-  try { if (document.body) dump(); else document.addEventListener('DOMContentLoaded', dump) } catch (e) {}
-  setTimeout(dump, 1200)
-  setTimeout(dump, 4000)
-  setInterval(dump, 2000)
-})();
-
-
-
+window.__dshWhaleWidget = true;
 
 // —— 页面自检：只在 DSH 主聊天界面挂载挂件 ——
 // 挂件脚本通过 tapIndex 注入 DSH 的每一个 index 页面（含插件市场等 SPA 视图）。
